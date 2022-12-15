@@ -30,10 +30,12 @@
             document.getElementById("userId").append(profile.userId)
             document.getElementById("statusMessage").append(profile.statusMessage)
             document.getElementById("displayName").append(profile.displayName)
-            document.getElementById("decodeIDToken").append(liff.getDecodeIDToken().email)
+            document.getElementById("decodedIDToken").append(liff.getDecodedIDToken().email)
         }
         async function main() {
-
+            await liff.init({
+                liffId: "1657738145-bgnwYz4X" //LIFF ID  ในline developers
+            })
             if (liff.isLoggedIn()) {
                 getUserProfile()
             } else {
@@ -41,9 +43,8 @@
                     redirectUri: "https://sulfad4p.github.io/liff/path"
                 })
             }
-            await liff.init({
-                liffId: "1657738145-bgnwYz4X" //LIFF ID  ในline developers
-            })
+
+
         }
         main()
     </script>
