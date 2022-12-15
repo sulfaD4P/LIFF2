@@ -48,13 +48,21 @@
     <script>
         function createUniversalLink() {}
 
-        async function shareMsg() {}
+        async function shareMsg() {
+            await liff.shareTargetPicker([{
+                "type": "text",
+                "text": "This message was sent by ShareTargetPicker"
+            }])
 
-        function logOut() {}
+        }
+
+        function logOut() {
+            liff.logOut()
+            window.location.reload()
+        }
 
         function closed() {
             liff.closeWindow()
-
         }
 
         async function scanCode() {
@@ -67,7 +75,6 @@
                 url: "https://line.me",
                 external: true
             })
-
         }
 
         async function getFriendship() {
@@ -97,8 +104,6 @@
             document.getElementById("utouId").append(liff.getContext().utouId)
             document.getElementById("roomId").append(liff.getContext().roomId)
             document.getElementById("groupId").append(liff.getContext().groupId)
-
-
         }
 
         async function getUserProfile() {
