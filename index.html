@@ -52,7 +52,10 @@
 
         function logOut() {}
 
-        function closed() {}
+        function closed() {
+            liff.closeWindow()
+
+        }
 
         async function scanCode() {
             const result = await liff.scanCode()
@@ -125,7 +128,7 @@
 
         async function main() {
             await liff.init({
-                liffId: "1657738145-bgnwYz4X"
+                liffId: "1657738145-bgnwYz4X" //LIFF ID  ในline developers
             })
             getEnvironment()
             getUserProfile()
