@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover">
     <title>My LIFF app</title>
-    <link rel="stylesheet" href="css/style.css" media="all">
+    <!-- <link rel="stylesheet" href="css/style.css" media="all"> -->
+    <script>
+        //Avoid LIFF Caching --หนี cache ให้ css อัปเดทอยู่ตลอดเวลา 
+        document.write('<link rel="stylesheet" href="css/style.css?cache=' + new date().getTime() + '">')
+    </script>
 </head>
 
 <body>
@@ -29,7 +33,7 @@
     <p id="isLoggedIn"><b>isLoggedIn:</b> </p>
     <p id="universalLink1"><b>Universal Link:</b> </p>
     <p id="universalLink2"><b>Universal Link with Query params:</b> </p>
-    <p><a href="liff/path/?param=9">Link to Path</a></p>
+    <p><a href="https://sulfad4p.github.io/liff/path/?param=1">Link to Path</a></p>
 
     <button id="btnMsg" onclick="sendMsg()">Send Message</button>
     <button id="btnShare" onclick="shareMsg()">Share Target Picker</button>
@@ -38,16 +42,23 @@
     <button id="btnLogOut" onclick="logOut()">Log Out</button>
     <button id="btnClose" onclick="closed()">Close</button>
 
-    <!-- <script src="js/vconsole.min.js"></script> -->
-    <!-- <script>
-    var vConsole = new VConsole()
-    console.log("Hello World!")
-  </script> -->
-
-    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script> -->
+    <script src="js/vconsole.min.js"></script>
     <script>
-        function createUniversalLink() {}
+        var vConsole = new VConsole()
+        console.log("Hello World!")
+        errorPlease()
+    </script>
 
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script>
+        function createUniversalLink() {
+            const link1 = liff.permanentLink.createUrl()
+            document.getElementById("universalLink1").append(link1)
+
+            liff.permanentLink.setExtraQueryParam('param=9')
+            const link2 = liff.permanentLink.createUrl()
+            document.getElementById("universalLink2").append(link2)
+        }
         async function shareMsg() {
             await liff.shareTargetPicker([{
                 "type": "text",
@@ -56,11 +67,11 @@
         }
 
         function logOut() {
-            liff.logout()
+            liff.logOut()
             window.location.reload()
         }
 
-        function closed() { //ปิดหน้าต่าง
+        function closed() {
             liff.closeWindow()
         }
 
@@ -69,7 +80,7 @@
             document.getElementById("scanCode").append(result.value)
         }
 
-        function openWindow() { //กดเข้าเว็บไซต์
+        function openWindow() {
             liff.openWindow({
                 url: "https://line.me",
                 external: true
@@ -97,7 +108,6 @@
             alert("Messages sent")
         }
 
-
         function getContext() {
             document.getElementById("type").append(liff.getContext().type)
             document.getElementById("viewType").append(liff.getContext().viewType)
@@ -105,7 +115,6 @@
             document.getElementById("roomId").append(liff.getContext().roomId)
             document.getElementById("groupId").append(liff.getContext().groupId)
         }
-
 
         async function getUserProfile() {
             const profile = await liff.getProfile()
@@ -116,22 +125,20 @@
             document.getElementById("decodeIDToken").append(liff.getDecodeIDToken().email)
         }
 
-
         function getEnvironment() {
             document.getElementById("os").append(liff.getOS())
             document.getElementById("language").append(liff.getLanguage())
             document.getElementById("version").append(liff.getVersion())
             document.getElementById("accessToken").append(liff.getAccessToken())
             document.getElementById("isInClient").append(liff.isInClient())
+                //check ว่าเปิดจาก Line App?
             if (liff.isInClient()) {
-                document.getElementById("btnLogOut").style.display = "none"
+                document.getElementById("btnLogOut").style.display = "none" //ซ่อนปุ่ม LogOut
             } else {
                 document.getElementById("btnMsg").style.display = "none"
                 document.getElementById("btnScanCode").style.display = "none"
                 document.getElementById("btnClose").style.display = "none"
             }
-
-
         }
 
         async function main() {
