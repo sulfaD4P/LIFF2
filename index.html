@@ -130,11 +130,16 @@
             await liff.init({
                 liffId: "1657738145-bgnwYz4X" //LIFF ID  ในline developers
             })
-            getEnvironment()
-            getUserProfile()
-            getContext()
-            getFriendship()
-                // createUniversalLink()
+            document.getElementById("isLoggedIn").append(liff.isLoggedIn())
+            if (liff.isLoggedIn()) {
+                getEnvironment()
+                getUserProfile()
+                getContext()
+                getFriendship()
+                    // createUniversalLink()
+            } else {
+                liff.login()
+            }
         }
         main()
     </script>
