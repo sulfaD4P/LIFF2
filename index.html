@@ -46,7 +46,14 @@
 
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script>
-        function createUniversalLink() {}
+        function createUniversalLink() {
+            const link1 = liff.parmanentlink.createUrl()
+            document.getElementById("universalLink1").append(link1)
+
+            liff.parmanentlink.setExtaQueryParam('param=9')
+            const link2 = liff.parmanentlink.createUrl()
+            document.getElementById("universalLink2").append(link2)
+        }
 
         async function shareMsg() {
             await liff.shareTargetPicker([{
@@ -141,7 +148,7 @@
                 getUserProfile()
                 getContext()
                 getFriendship()
-                    // createUniversalLink()
+                createUniversalLink()
             } else {
                 liff.login()
                 window.location.reload()
