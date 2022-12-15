@@ -33,9 +33,7 @@
             document.getElementById("decodeIDToken").append(liff.getDecodeIDToken().email)
         }
         async function main() {
-            await liff.init({
-                liffId: "1657738145-bgnwYz4X" //LIFF ID  ในline developers
-            })
+
             if (liff.isLoggedIn()) {
                 getUserProfile()
             } else {
@@ -43,7 +41,11 @@
                     redirectUri: "https://sulfad4p.github.io/liff/path"
                 })
             }
+            await liff.init({
+                liffId: "1657738145-bgnwYz4X" //LIFF ID  ในline developers
+            })
         }
+        main()
     </script>
 </body>
 
